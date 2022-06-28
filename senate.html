@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senate</title>
+</head>
+<body>
+    <nav>
+        <div>
+          <div>
+            <a href="#">Data Insight Group</a>
+          </div>
+          <ul >
+            <li><a href="./index.html">Home</a></li>
+            <li >
+              <a href="#">Congress 113</a>
+              <ul >
+                <li><a href="#">Senate</a></li>
+                <li><a href="./house.html">House</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+    </nav>        
+
+
+
+    <div>
+        <h2>Senators</h2>
+        <p>First convened in 1789, the composition and powers of the Senate are established in Article One of the U.S. Constitution. Each state is represented by two senators, regardless of population, who serve staggered six-year terms. The Senate has several exclusive powers not granted to the House, including consenting to treaties as a precondition to their ratification and consenting to or confirming appointments of Cabinet secretaries, federal judges, other federal executive officials, military officers, regulatory officials, ambassadors, and other federal uniformed officers, as well as trial of federal officials impeached by the House.</p>
+        <table id="table">   
+            <thead>
+                <tr>    
+                    <th>Name</th>
+                    <th>Party</th>
+                    <th>State</th>
+                    <th>Years in Office</th>
+                    <th>% Votes w/ Party</th>
+                </tr> 
+            </thead>
+            <tbody id="bodytable-senate">      <!-- vacio se LLENA CON LA API --->
+               
+            </tbody>
+        </table>
+    </div>    
+
+    <footer>
+        <h4>todos los derechos reservados</h4>
+      </footer>
+      
+      <script src="./house.js"></script>
+      <script src="./senate.js"></script>
+      <script src="./app.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>
