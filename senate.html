@@ -1,58 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <title>Senate</title>
-</head>
-<body>
-    <nav>
-        <div>
-          <div>
-            <a href="#">Data Insight Group</a>
-          </div>
-          <ul >
-            <li><a href="./index.html">Home</a></li>
-            <li >
-              <a href="#">Congress 113</a>
-              <ul >
-                <li><a href="#">Senate</a></li>
-                <li><a href="./house.html">House</a></li>
-              </ul>
-            </li>
-          </ul>
+  </head>
+
+  <body>
+    <header>
+      <div class="d-flex flex-row justify-content-between">
+        <div class="d-flex flex-row">
+            <img class="img-logo-header" src="./assets/logo.jpeg" alt="milogo">
+            <h2 class="display-5 py-2">Data Insigth Group Logo </h2>
         </div>
-    </nav>        
+        <div class="m-4 d-flex flex-row"> 
+            <img class="fotoMail m-2" src="./assets/mailfoto.png" alt="iconomail">
+            <a class="float-end lead" href="mailto:info@DataInsightGroup.net">info@DataInsightGroup.net</a>
+        </div>
+      </div>
 
-
+      <nav class="navbar navbar-expand-md bg-dark">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active text-white" aria-current="page" href="./index.html">Home</a>
+              </li>
+              <li class="nav-item dropdown text-white">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Congress 113
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="#">Senate</a></li>
+                      <li><a class="dropdown-item" href="./house.html">House</a></li>
+                    </ul>
+              </li>
+            </ul>         
+          </div>
+        </div>
+        </nav>
+    </header>
+        
+    <div class="w-50 p-2 m-4">
+      <h2>Senators</h2>
+      <p>
+        First convened in 1789, the composition and powers of the Senate are
+        established in Article One of the U.S. Constitution. Each state is
+        represented by two senators, regardless of population, who serve
+        staggered six-year terms. The Senate has several exclusive powers not
+        granted to the House, including consenting to treaties as a precondition
+        to their ratification and consenting to or confirming appointments of
+        Cabinet secretaries, federal judges, other federal executive officials,
+        military officers, regulatory officials, ambassadors, and other federal
+        uniformed officers, as well as trial of federal officials impeached by
+        the House.
+      </p>
+    </div>
+    
 
     <div>
-        <h2>Senators</h2>
-        <p>First convened in 1789, the composition and powers of the Senate are established in Article One of the U.S. Constitution. Each state is represented by two senators, regardless of population, who serve staggered six-year terms. The Senate has several exclusive powers not granted to the House, including consenting to treaties as a precondition to their ratification and consenting to or confirming appointments of Cabinet secretaries, federal judges, other federal executive officials, military officers, regulatory officials, ambassadors, and other federal uniformed officers, as well as trial of federal officials impeached by the House.</p>
-        <table id="table">   
-            <thead>
-                <tr>    
-                    <th>Name</th>
-                    <th>Party</th>
-                    <th>State</th>
-                    <th>Years in Office</th>
-                    <th>% Votes w/ Party</th>
-                </tr> 
-            </thead>
-            <tbody id="bodytable-senate">      <!-- vacio se LLENA CON LA API --->
-               
-            </tbody>
-        </table>
-    </div>    
+      <form id="formCheckbox">
+        <div class="container col-2 btn-group m-2" role="group" aria-label="Basic checkbox toggle button group">
+          <input type="checkbox" id="check-d" name="party" class="checkbox btn-check"  value="D" />
+          <label class="btn btn-outline-dark" for="check-d">Democrat </label>
 
-    <footer>
-        <h4>todos los derechos reservados</h4>
-      </footer>
-      
-      <script src="./house.js"></script>
-      <script src="./senate.js"></script>
-      <script src="./app.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-</body>
+          <input type="checkbox" id="check-r" name="party" class="checkbox btn-check" value="R" />
+          <label class="btn btn-outline-dark" for="check-r"> Republican </label>
+
+          <input type="checkbox" id="check-i" name="party" class="checkbox btn-check" value="ID" />
+          <label class="btn btn-outline-dark" for="check-i">Independent </label>
+        </div>
+      </form>
+
+      <table class="table table-hover w-50 m-4" id="table">
+        <thead class="table-info">
+          <tr class="text-center">
+            <th>Name</th>
+            <th>Party</th>
+            <th>State</th>
+            <th>Years in Office</th>
+            <th>% Votes w/ Party</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider" id="bodytable-senate"></tbody>
+      </table>
+    
+    </div>
+
+
+    <footer class="bg-light p-3 text-center">
+      <span class="lead">© 2021 Data Insight Group | All Rights Reserved</span>
+    </footer>
+
+    <script src="./house.js"></script>
+    <script src="./senate.js"></script>
+    <script src="./app.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
