@@ -1,18 +1,16 @@
-//*Copias de las API
-const senateCopy = Array.from(senateAPI.results[0].members).filter(member=> member.party)
+const senateCopy = Array.from(senateAPI.results[0].members)
 const houseCopy = Array.from(houseAPI.results[0].members)
 
 const bodytableSenate = document.querySelector('#bodytable-senate')
 const bodytableHouse = document.querySelector('#bodytable-house')
 const formCheckbox = document.querySelector('#formCheckbox')
-
-
+const select = document.getElementById("select");
 let sinRepetidos = []; //Array que guarda los estados sin repetidos, lo uso enobtenerEstados() y generaroption
 
 function arrayDeCheck(){
 const checkboxes = document.querySelectorAll('.checkbox')   //* me devuelve nodeList, lo paso a array
 let checkArr = [];
-//*GUARDAR Y SACAR VALORES DE CHEKCED EN ARRAY
+
 for(let checkbox of checkboxes){
         if(checkbox.checked == true){
             checkArr.push(checkbox.value);  //Guardo en mi array los elementos tildados
@@ -22,89 +20,68 @@ for(let checkbox of checkboxes){
 }}
     return checkArr
 }
-
-function filterMembers(arr, arr2){
-    const newMembers = arr.filter(
-    member => arr2.includes(member.party)
+function obtenerEstados(arr){  
+    const newArr = arr.map(member =>
+        member.state
     )
-    return newMembers;
+    sinRepetidos = Array.from(new Set(newArr))
+    // console.log(sinRepetidos);
 }
-
-
-function filterMembers2(arr , condicion){
-    const newMembers = arr.filter(member => {
-        if(condicion[0] === member.state && condicion.includes(member.party)){
-            return member
-        }  
-        if (condicion.includes(member.party)){
-            return member
-        } 
-        else if (condicion[0] === member.state){
+function generarOption(arr){
+    const select = document.querySelector('#select')
+    arr.forEach(estado => {
+    let newOption = document.createElement('OPTION')
+    newOption.textContent = estado
+    newOption.setAttribute("value", estado)  //* le agergo un value para poder filtrar desp
+    select.appendChild(newOption)
+})}
+function obtenerSelected(arr){
+    let selected = select.value
+    arr.unshift(selected)
+}
+function filterMembers(arr , condicion){ 
+    const aux = arr.filter(member => {
+        if((member.state === condicion[0] || condicion[0] === "All" || condicion.length === 0 ) && condicion.includes(member.party)){
             return member
         }
-})
-    console.log(newMembers);
-    return newMembers
+        })
+        return aux;
     }
-
 
 if (document.title == "Senate"){
     showMembers(senateCopy, bodytableSenate);
+    obtenerEstados(senateCopy)
+    generarOption(sinRepetidos)
 
-    //* FILTRO POR CHECKBOX
     formCheckbox.addEventListener('change', (e) => {
         const resultado = arrayDeCheck()
-        const members = filterMembers(senateCopy, resultado)
-        showMembers(members, bodytableSenate)
-        if(resultado.length === 0){
-            showMembers(senateCopy, bodytableSenate)
+        obtenerSelected(resultado)
+        console.log(resultado);
+        filtrados = filterMembers(senateCopy, resultado) 
+        console.log(filtrados);
+        showMembers(filtrados, bodytableSenate)
+        if( resultado.length === 0 || resultado.length ===1 && resultado[0] === "All"){ 
+            showMembers(houseCopy, bodytableSenate)
         }
     })
 } 
 else if (document.title == "House") {
     showMembers(houseCopy, bodytableHouse)
+    obtenerEstados(houseCopy)
+    generarOption(sinRepetidos)
 
-        //* FUNCION Q PASA TODOS LOS ESTADOS A UN ARRAY
-        function obtenerEstados(arr){    //TODO: NO ME MUESTRA 50
-            const newArr = arr.map(member =>
-                member.state
-            )
-            sinRepetidos = Array.from(new Set(newArr))
-            console.log(sinRepetidos);
+    formCheckbox.addEventListener('change', (e) => {
+        const resultado = arrayDeCheck()  //*Mi array con los checkboxs y option
+        obtenerSelected(resultado)
+        console.log(resultado);  
+        filtrados = filterMembers(houseCopy, resultado)  
+        console.log(filtrados);
+        showMembers(filtrados, bodytableHouse)
+        if( resultado.length === 0 || resultado.length ===1 && resultado[0] === "All"){ 
+            showMembers(houseCopy, bodytableHouse)
         }
-        obtenerEstados(houseCopy)
-    
-        function generarOption(arr){
-            const select = document.querySelector('#select')
-            arr.forEach(estado => {
-            let newOption = document.createElement('OPTION')
-            newOption.textContent = estado
-            newOption.setAttribute("value", estado)  //* le agergo un value para poder filtrar desp
-            select.appendChild(newOption)
-        })}
-        generarOption(sinRepetidos)
-
-        function obtenerSelected(arr){
-            let selected = select.value
-            arr.unshift(selected)
-        }
-    
-            
-        //Filtrado por checkbox + por select
-        formCheckbox.addEventListener('change', (e) => {
-            const resultado = arrayDeCheck()  //*Mi array con los checkboxs y option
-            obtenerSelected(resultado)
-            console.log(resultado);  
-
-            filtrados = filterMembers2(houseCopy, resultado)
-            console.log(filtrados);
-            showMembers(filtrados, bodytableHouse)
-            if( resultado.length === 0 ){  //*TODO: PROBLEMAS CON EL "ALL"
-                showMembers(houseCopy, bodytableHouse)
-            }
-        })
+    })
 }
-
 
 function showMembers(arr, element) {
     element.innerHTML = ''
@@ -135,3 +112,16 @@ function showMembers(arr, element) {
         element.appendChild(tr)
     })
 }
+
+
+
+
+
+
+
+// function filterMembers(arr, arr2){
+//     const newMembers = arr.filter(
+//     member => arr2.includes(member.party)
+//     )
+//     return newMembers;
+// }
