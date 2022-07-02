@@ -4,6 +4,7 @@ const houseCopy = Array.from(houseAPI.results[0].members)
 const bodytableSenate = document.querySelector('#bodytable-senate')
 const bodytableHouse = document.querySelector('#bodytable-house')
 const formCheckbox = document.querySelector('#formCheckbox')
+const alert = document.querySelector('#alert')
 const select = document.getElementById("select");
 let sinRepetidos = []; //Array que guarda los estados sin repetidos, lo uso enobtenerEstados() y generaroption
 
@@ -20,6 +21,10 @@ for(let checkbox of checkboxes){
 }}
     return checkArr
 }
+function obtenerSelected(arr){
+    let selected = select.value
+    arr.unshift(selected)
+}
 function obtenerEstados(arr){  
     const newArr = arr.map(member =>
         member.state
@@ -35,14 +40,12 @@ function generarOption(arr){
     newOption.setAttribute("value", estado)  //* le agergo un value para poder filtrar desp
     select.appendChild(newOption)
 })}
-function obtenerSelected(arr){
-    let selected = select.value
-    arr.unshift(selected)
-}
 function filterMembers(arr , condicion){ 
     const aux = arr.filter(member => {
         if((member.state === condicion[0] || condicion[0] === "All" || condicion.length === 0 ) && condicion.includes(member.party)){
             return member
+        }else {
+            alert.innerHTML = "<p>No se encontraron miembros</p>"
         }
         })
         return aux;
@@ -71,7 +74,7 @@ else if (document.title == "House") {
     generarOption(sinRepetidos)
 
     formCheckbox.addEventListener('change', (e) => {
-        const resultado = arrayDeCheck()  //*Mi array con los checkboxs y option
+        const resultado = arrayDeCheck()  //*Mi array con los checkboxs
         obtenerSelected(resultado)
         console.log(resultado);  
         filtrados = filterMembers(houseCopy, resultado)  
@@ -112,16 +115,3 @@ function showMembers(arr, element) {
         element.appendChild(tr)
     })
 }
-
-
-
-
-
-
-
-// function filterMembers(arr, arr2){
-//     const newMembers = arr.filter(
-//     member => arr2.includes(member.party)
-//     )
-//     return newMembers;
-// }

@@ -11,41 +11,52 @@
 
 <body class="h-100 w-100">
     <header class="w-100">
-      <div class="d-flex flex-row justify-content-between">
-        <div class="d-flex flex-row">
-          <img class="img-logo-header" src="./assets/logo.jpeg" alt="milogo">
-          <h2 class="display-5 py-2">Data Insight Group Logo </h2>
+      <div class="row  justify-content-sm-center">
+        <div class="col-sm-12 col-md-6">
+                <div class="d-flex flex-row">
+                    <img class="img-logo-header" src="./assets/logo.jpeg" alt="milogo">
+                    <h2 class="display-5 py-2">Data Insight Group Logo </h2>
+                </div>
         </div>
-        <div class="m-4 d-flex flex-row"> 
-          <img class="fotoMail m-2" src="./assets/mailfoto.png" alt="iconomail">
-          <a class="float-end lead" href="mailto:info@DataInsightGroup.net">info@DataInsightGroup.net</a>
-        </div>
-
-      </div>
-        <nav class="navbar navbar-expand-md bg-dark">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item text-white">
-                    <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
-                  </li>
-                  <li class="nav-item dropdown text-white">
-                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Congress 113
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="./senate.html">Senate</a></li>
-                      <li><a class="dropdown-item" href="./house.html">House</a></li>
-                    </ul>
-                </ul>
-              </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="m-4 d-flex flex-row"> 
+                <img class="fotoMail m-2" src="./assets/mailfoto.png" alt="iconomail">
+                <a class="float-end lead" href="mailto:info@DataInsightGroup.net">info@DataInsightGroup.net</a>
             </div>
-          </nav>
+        </div>                       
+      </div>
 
-        
+      <div class="row">
+        <div class="col-12 ">
+            <nav class="navbar navbar-toggleable navbar-expand-lg bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-white" href="#">Data Insight Group</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon text-white"></span>
+                    </button>
+                    <div class="collapse navbar-collapse text-center" id="navbarTogglerDemo02">
+                      <a class="nav-link text-white py-2 me-3" aria-current="page" href="#">Home</a>
+                        <div class="accordion-item align-center me-3">
+                          <span class="accordion-header text-white m-auto" id="headingTwo">
+                              <button class="accordion-button collapsed text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                  Congress 113
+                              </button>
+                          </span>
+                          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                              <div class="accordion-body">
+                                  <a class="dropdown-item text-white" href="./senate.html">Senate</a></li>
+                                  <a class="dropdown-item text-white" href="./house.html">House</a></li>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>       
     </header>
     
-    <div class="w-50 p-2 m-4">
+    <div class="container-fluid row col-sm-12 col-lg-7 m-2">
       <h2>About Us</h2>
       <p>
         Openness, accountability, and honesty define government transparency. 
@@ -72,7 +83,7 @@
 
 
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingTwo">
+        <h2 class="accordion-header m-auto" id="headingTwo">
           <button id="accordionBtn" class="btn btn-primary collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             Read More...
           </button>
