@@ -44,8 +44,6 @@ function filterMembers(arr , condicion){
     const aux = arr.filter(member => {
         if((member.state === condicion[0] || condicion[0] === "All" || condicion.length === 0 ) && condicion.includes(member.party)){
             return member
-        }else {
-            alert.innerHTML = "<p>No se encontraron miembros</p>"
         }
         })
         return aux;
@@ -83,6 +81,9 @@ else if (document.title == "House") {
         if( resultado.length === 0 || resultado.length ===1 && resultado[0] === "All"){ 
             showMembers(houseCopy, bodytableHouse)
         }
+        if (filtrados.length === 0) {
+                alert.classList.remove("hidden")
+        }
     })
 }
 
@@ -105,11 +106,11 @@ function showMembers(arr, element) {
         tr.appendChild(tdState)
         
         let tdYears = document.createElement('TD')
-        tdYears.textContent = `${member.seniority || ""}`
+        tdYears.textContent = `${member.seniority || ""} years`
         tr.appendChild(tdYears)
         
         let tdVotes = document.createElement('TD')
-        tdVotes.textContent = `${member.votes_with_party_pct || ""}`
+        tdVotes.textContent = `${member.votes_with_party_pct || ""}% `
         tr.appendChild(tdVotes)
 
         element.appendChild(tr)
