@@ -1,6 +1,5 @@
 const senateCopy = Array.from(senateAPI.results[0].members)
 const houseCopy = Array.from(houseAPI.results[0].members)
-console.log(senateCopy[0]);
 
 const glanceSenateTable = document.querySelector('.glance-senate')
 const glanceHouseTable = document.querySelector('.glance-house')
@@ -14,33 +13,28 @@ const stats = {
     num_dem_house: filterByParty(houseCopy, 'D').length,
     num_rep_senate: filterByParty(senateCopy, 'R').length,
     num_rep_house: filterByParty(houseCopy, 'D').length,
-    num_ind_senate: filterByParty(senateCopy, 'I').length,
-    num_ind_house: filterByParty(houseCopy, 'I').length,
+    num_ind_senate: filterByParty(senateCopy, 'ID').length,
+    num_ind_house: filterByParty(houseCopy, 'ID').length,
     total_senate: filterByParty(senateCopy).length,
     total_house: filterByParty(houseCopy).length,
     pct_dem_votes_senate: getPctVoted(senateCopy, 'D'),
     pct_dem_votes_house: getPctVoted(houseCopy, 'D'),
     pct_rep_votes_senate: getPctVoted(senateCopy, 'R'),
     pct_rep_votes_house: getPctVoted(houseCopy, 'R'),
-    pct_ind_votes_senate: getPctVoted(senateCopy, 'I'),
-    pct_ind_votes_house: getPctVoted(houseCopy, 'I'),
+    pct_ind_votes_senate: getPctVoted(senateCopy, 'ID'),
+    pct_ind_votes_house: getPctVoted(houseCopy, 'ID'),
     pct_total_senate: getPctVoted(senateCopy),
     pct_total_house: getPctVoted(houseCopy),
-    least_engaged_senate: sortFunctionDesc(senateCopy, 'missed_votes').slice(0, getTenPercent(senateCopy)),   //* MAYOR cantidad de missed: missed_votes
-    least_engaged_house: sortFunctionDesc(houseCopy, 'missed_votes').slice(0, getTenPercent(houseCopy)),
-    most_engaged_senate: sortFunctionAsc(senateCopy, 'missed_votes').slice(0, getTenPercent(senateCopy)),
-    most_engaged_house: sortFunctionAsc(houseCopy, 'missed_votes').slice(0, getTenPercent(houseCopy)),
-    least_loyal_senate: sortFunctionAsc(senateCopy, 'votes_with_party_pct').slice(0, getTenPercent(senateCopy)),
-    least_loyal_house: sortFunctionAsc(houseCopy, 'votes_with_party_pct').slice(0, getTenPercent(houseCopy)),
-    most_loyal_senate: sortFunctionDesc(senateCopy, 'votes_with_party_pct').slice(0, getTenPercent(senateCopy)),
-    most_loyal_house: sortFunctionDesc(houseCopy, 'votes_with_party_pct').slice(0, getTenPercent(houseCopy))
+    least_engaged_senate: sortFunction(senateCopy, 'missed_votes', false).slice(0, getTenPercent(senateCopy)),   //* MAYOR cantidad de missed: missed_votes
+    least_engaged_house: sortFunction(houseCopy, 'missed_votes', false).slice(0, getTenPercent(houseCopy)),
+    most_engaged_senate: sortFunction(senateCopy, 'missed_votes', true).slice(0, getTenPercent(senateCopy)),
+    most_engaged_house: sortFunction(houseCopy, 'missed_votes', true).slice(0, getTenPercent(houseCopy)),
+    least_loyal_senate: sortFunction(senateCopy, 'votes_with_party_pct', true).slice(0, getTenPercent(senateCopy)),
+    least_loyal_house: sortFunction(houseCopy, 'votes_with_party_pct', true).slice(0, getTenPercent(houseCopy)),
+    most_loyal_senate: sortFunction(senateCopy, 'votes_with_party_pct', false).slice(0, getTenPercent(senateCopy)),
+    most_loyal_house: sortFunction(houseCopy, 'votes_with_party_pct', false).slice(0, getTenPercent(houseCopy))
 }
-console.log(stats);
 
-
-// createTable(arr, element, votesNumber, pct){
-// createGlanceTable(arr, obj, element){
-// printGlance(element, object, prop1, prop2, prop3, prop4, prop5, prop6, prop7, prop8){
 
 if(document.title === "Attendance | Senate"){
     printGlance(glanceSenateTable, stats, 'num_dem_senate', 'pct_dem_votes_senate', 'num_rep_senate', 'pct_rep_votes_senate', 'num_ind_senate', 'pct_ind_votes_senate', 'total_senate', 'pct_total_senate')
@@ -63,8 +57,7 @@ if(document.title === "Party Loyalty | House"){
     createTable(stats.most_loyal_house, mostLoyalTable, 'total_votes', 'votes_with_party_pct')
 }
 
-
-function filterByParty(arr, party){                //Función que filtra por partido
+function filterByParty(arr, party){ 
     let repsNumber
     !party ? repsNumber = arr.filter(member => member.party) //El total
     : repsNumber = arr.filter(member => member.party === party);
@@ -80,15 +73,9 @@ function getPctVoted(arr, party){
     let total = parseFloat((count / filteredParty.length).toFixed(2)) || 0 ;
     return total
 }
-function sortFunctionAsc(arr, prop){      //De menor a mayor
+function sortFunction(arr, prop, order){  //Order: un booleano, si es true: ascendente, si es false: descendente
     let result = arr.sort((a, b) => {
-            return a[prop] - b[prop];
-    })
-    return result
-}
-function sortFunctionDesc(arr, prop){
-    let result = arr.sort((a, b) => {
-            return b[prop] - a[prop];
+            return order ? a[prop] - b[prop] : b[prop] - a[prop];
     })
     return result
 }
@@ -102,7 +89,7 @@ function createTable(arr, element, votesNumber, pct){
         tr.classList.add('text-center')
         
         let tdName = document.createElement('TD')
-        tdName.innerHTML = `<a href=${el.url}>${el.first_name} ${el.last_name}</a>`;
+        tdName.innerHTML = `<a class="text-decoration-none opacity-75" href=${el.url}>${el.last_name}, ${el.first_name}</a>`;
         tr.appendChild(tdName)
 
         let tdNumV = document.createElement('TD')

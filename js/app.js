@@ -94,7 +94,7 @@ function showMembers(arr, element) {
         tr.classList.add('text-center')
         
         let tdName = document.createElement('TD')
-        tdName.innerHTML = `<a href=${member.url}>${member.first_name} ${member.last_name}</a>`;
+        tdName.innerHTML = `<a class="text-decoration-none opacity-75" href=${member.url}>${member.last_name}, ${member.first_name}</a>`;;
         tr.appendChild(tdName)
         
         let tdParty = document.createElement('TD')
