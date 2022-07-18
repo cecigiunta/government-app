@@ -2,9 +2,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    scroll-behavior: unset;
 }
 
+/*---------------- Header -----------------*/
+.header-style{
+    background-image: url("./assets/usa-flag.jpg");
+    background-repeat: no-repeat;
+}
 .img-logo-header{
     width: 100px;
     height: 100px;
@@ -14,15 +18,19 @@
     height: 25px;
     margin-bottom: 15px;
 }
-.accordion-item{
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
+.navbar li:hover{
+    background: rgba(248, 246, 246, 0.214);
+    color: #ffffff;
 }
-.home-img{
-    width: 300px;
-    height: 500px;
+.navbar-bg{
+    background-color: rgba(1, 13, 80, 0.876);
 }
-.hidden{
-    display: none;
-} 
+.title-style{
+    text-shadow: 5px 5px #01060b;
+}
+
+
+/*---------------- Footer -----------------*/
+.footer{
+    background-color: rgba(1, 13, 80, 0.876);
+}

@@ -25,16 +25,15 @@ const stats = {
     pct_ind_votes_house: getPctVoted(houseCopy, 'ID'),
     pct_total_senate: getPctVoted(senateCopy),
     pct_total_house: getPctVoted(houseCopy),
-    least_engaged_senate: sortFunction(senateCopy, 'missed_votes', false).slice(0, getTenPercent(senateCopy)),   //* MAYOR cantidad de missed: missed_votes
-    least_engaged_house: sortFunction(houseCopy, 'missed_votes', false).slice(0, getTenPercent(houseCopy)),
-    most_engaged_senate: sortFunction(senateCopy, 'missed_votes', true).slice(0, getTenPercent(senateCopy)),
-    most_engaged_house: sortFunction(houseCopy, 'missed_votes', true).slice(0, getTenPercent(houseCopy)),
-    least_loyal_senate: sortFunction(senateCopy, 'votes_with_party_pct', true).slice(0, getTenPercent(senateCopy)),
-    least_loyal_house: sortFunction(houseCopy, 'votes_with_party_pct', true).slice(0, getTenPercent(houseCopy)),
-    most_loyal_senate: sortFunction(senateCopy, 'votes_with_party_pct', false).slice(0, getTenPercent(senateCopy)),
-    most_loyal_house: sortFunction(houseCopy, 'votes_with_party_pct', false).slice(0, getTenPercent(houseCopy))
+    least_engaged_senate: sortFunction(senateCopy, 'missed_votes', false),   //* MAYOR cantidad de missed: missed_votes
+    least_engaged_house: sortFunction(houseCopy, 'missed_votes', false),
+    most_engaged_senate: sortFunction(senateCopy, 'missed_votes', true),
+    most_engaged_house: sortFunction(houseCopy, 'missed_votes', true),
+    least_loyal_senate: sortFunction(senateCopy, 'votes_with_party_pct', true),
+    least_loyal_house: sortFunction(houseCopy, 'votes_with_party_pct', true),
+    most_loyal_senate: sortFunction(senateCopy, 'votes_with_party_pct', false),
+    most_loyal_house: sortFunction(houseCopy, 'votes_with_party_pct', false)
 }
-
 
 if(document.title === "Attendance | Senate"){
     printGlance(glanceSenateTable, stats, 'num_dem_senate', 'pct_dem_votes_senate', 'num_rep_senate', 'pct_rep_votes_senate', 'num_ind_senate', 'pct_ind_votes_senate', 'total_senate', 'pct_total_senate')
@@ -59,7 +58,7 @@ if(document.title === "Party Loyalty | House"){
 
 function filterByParty(arr, party){ 
     let repsNumber
-    !party ? repsNumber = arr.filter(member => member.party) //El total
+    !party ? repsNumber = arr.filter(member => member.party)
     : repsNumber = arr.filter(member => member.party === party);
     return repsNumber
 }
@@ -73,15 +72,21 @@ function getPctVoted(arr, party){
     let total = parseFloat((count / filteredParty.length).toFixed(2)) || 0 ;
     return total
 }
-function sortFunction(arr, prop, order){  //Order: un booleano, si es true: ascendente, si es false: descendente
-    let result = arr.sort((a, b) => {
-            return order ? a[prop] - b[prop] : b[prop] - a[prop];
+function sortFunction(arr,prop, order){
+    const newArr = arr.sort( (a,b) => {
+    if(order){
+        return a[prop] - b[prop]
+    }else{
+        return b[prop] - a[prop]
+    }
     })
-    return result
-}
-function getTenPercent(arr){
-    arr= Math.floor(arr.length*0.10)
-    return arr
+    const tenPct = Math.ceil(newArr.length * .1)
+    const ref = newArr[tenPct - 1][prop]
+    if(order){
+        return newArr.filter( elemento => elemento[prop] <= ref)
+    }else{
+        return newArr.filter( elemento => elemento[prop] >= ref)
+    }
 }
 function createTable(arr, element, votesNumber, pct){
     arr.forEach(el => {
@@ -104,7 +109,7 @@ function createTable(arr, element, votesNumber, pct){
     })
 }
 function printGlance(element, object, prop1, prop2, prop3, prop4, prop5, prop6, prop7, prop8){
-    element.innerHTML += `
+    element.innerHTML += ` 
     <tr>
         <td>Democrats</td>
         <td>${object[prop1]}</td>
@@ -126,5 +131,4 @@ function printGlance(element, object, prop1, prop2, prop3, prop4, prop5, prop6, 
         <td>${object[prop8]}%</td>
     </tr>
     `
-
 }
