@@ -1,6 +1,31 @@
 const senateCopy = Array.from(senateAPI.results[0].members)
 const houseCopy = Array.from(houseAPI.results[0].members)
 
+const key = 'BT3c8wQepIFXwxZXbygcABZa5k5l31cAMIDIrVDA'
+const senate = 'senate'
+const house = 'house'
+const urlSenate = 'https://api.propublica.org/congress/v1/117/senate/members.json'
+const urlHouse = 'https://api.propublica.org/congress/v1/117/house/members.json'
+const options = {
+    method: 'GET',
+    headers: {
+        'X-API-Key': key
+    }
+}
+
+async function getData(){
+    try {
+        const responseSenate = await fetch(urlSenate, options)
+        const responseHouse = await fetch(urlHouse, options)
+        const dataSenate = await responseSenate.json()
+        const dataHouse = await responseHouse.json()
+        console.log(dataSenate);
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
 const bodytableSenate = document.querySelector('#bodytable-senate')
 const bodytableHouse = document.querySelector('#bodytable-house')
 const formCheckbox = document.querySelector('#formCheckbox')
@@ -30,7 +55,6 @@ function obtenerEstados(arr){
         member.state
     )
     sinRepetidos = Array.from(new Set(newArr))
-    // console.log(sinRepetidos);
 }
 function generarOption(arr){
     const select = document.querySelector('#select')
