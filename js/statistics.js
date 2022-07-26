@@ -1,3 +1,62 @@
+Vue.createApp({
+    data() {
+      return {
+        key: 'BT3c8wQepIFXwxZXbygcABZa5k5l31cAMIDIrVDA',
+        urlSenate: 'https://api.propublica.org/congress/v1/117/senate/members.json',
+        urlHouse: 'https://api.propublica.org/congress/v1/117/house/members.json',
+        options: {
+            method: 'GET',
+            headers: {"X-API-Key":'BT3c8wQepIFXwxZXbygcABZa5k5l31cAMIDIrVDA'}
+        },
+        members: [],   //Arr vacío para guardar resultados del Fetch
+      }
+    },
+    created(){
+        if(document.title === "Attendance | Senate"){
+            fetch(this.urlSenate, this.options)
+                .then((res) => res.json())
+                .then((data) => {
+                    this.members = data.results[0].members;
+                })
+                .catch(err => console.error(err))
+        }
+        if(document.title === "Attendance | House"){
+            fetch(this.urlHouse, this.options)
+                .then((res) => res.json())
+                .then((data) => {
+                    this.members = data.results[0].members;  
+                    // obtenerSelected(members);
+                })
+                .catch(err => console.error(err))
+        }
+        if(document.title === "Party Loyalty | Senate"){
+            fetch(this.urlSenate, this.options)
+                .then((res) => res.json())
+                .then((data) => {
+                    this.members = data.results[0].members;
+                })
+                .catch(err => console.error(err))
+        }
+        if(document.title === "Party Loyalty | House"){
+            fetch(this.urlHouse, this.options)
+                .then((res) => res.json())
+                .then((data) => {
+                    this.members = data.results[0].members;  
+                    // obtenerSelected(members);
+                })
+                .catch(err => console.error(err))
+        }
+    },
+    methods: {
+      filtrar : function(){
+        this.personajesFiltrados = this.personajes.filter( personaje => personaje.name.toLowerCase().includes(this.busqueda.toLowerCase()))
+      }
+    }
+}).mount('#personajes')
+
+
+
+
 const senateCopy = Array.from(senateAPI.results[0].members)
 const houseCopy = Array.from(houseAPI.results[0].members)
 
