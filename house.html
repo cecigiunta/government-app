@@ -27,7 +27,7 @@
             </div>                       
         </div>
     </header>
-    <nav class="navbar navbar-bg navbar-expand-xl">
+    <nav class="navbar navbar-bg navbar-expand-xxl">
       <div class="container-fluid">
         <span class="navbar-brand text-white">Data Insigth Group</span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,32 +90,35 @@
         
     <div class="container text-center justify-content-center">
         <form  id="formCheckbox" class="row d-flex flex-row justify-content-center mx-auto">          
-            <div class="col-12 col-lg-5 mx-auto my-2">
-                <h5>Filter by Party:</h5>                
-                <div class="btn-group mb-2" role="group" aria-label="Basic checkbox toggle button group">
-                    <input type="checkbox" id="check-d" name="party" class="checkbox btn-check"  value="D" />
-                    <label class="btn btn-outline-dark" for="check-d">Democrat </label>
+          <div class="col-12 col-lg-5 mx-auto my-2">
+            <h5>Filter by Party:</h5>                
+            <div class="btn-group mb-2" role="group" aria-label="Basic checkbox button group">
+                <label class="btn btn-outline-dark" for="check-d">Democrat
+                  <input v-model="parties" type="checkbox" id="check-d" name="party" value="D" />
+                </label>
 
-                    <input type="checkbox" id="check-r" name="party" class="checkbox btn-check" value="R" />
-                    <label class="btn btn-outline-dark" for="check-r"> Republican </label>
+                <label class="btn btn-outline-dark" for="check-r"> Republican
+                  <input v-model="parties" type="checkbox" id="check-r" name="party" value="R" />
+                </label>
 
-                    <input type="checkbox" id="check-i" name="party" class="checkbox btn-check" value="ID" />
-                    <label class="btn btn-outline-dark" for="check-i">Independent </label>
-                </div>
+                <label class="btn btn-outline-dark" for="check-i">Independent
+                  <input v-model="parties" type="checkbox" id="check-i" name="party" value="ID" />
+                </label>
             </div>
-            <div class="col-12 col-lg-5 responsive mx-auto text-center">
-                <h5>Filter by State:</h5>
-                <select class="form-select text-center my-2" id="select">
-                  <option id="option" class="text-center" value="All">All</option>
-                  <option id="option" class="text-center" value="All" v-for="member in members">
-                    {{member.state}}
-                  </option>
-                </select>
-            </div>
+        </div>
+        <div class="col-12 col-lg-5 responsive mx-auto text-center">
+          <h5>Filter by State:</h5>
+          <select v-model="state" class="form-select text-center my-2" id="select">
+              <option class="text-center" value="All">All</option>
+              <option class="text-center" v-for="member in members">
+                {{member.state}}
+              </option>
+          </select>
+        </div>
         </form>
     </div>
 
-        <div class="m-auto mx-4 table-responsive-md">
+        <div v-if="filterMembers.length > 0" class="m-auto mx-4 table-responsive-md">
             <table class="table table-hover m-2" id="table">
                 <thead class="table-danger">
                     <tr class="text-center">
@@ -126,23 +129,23 @@
                         <th>Votes w/ Party</th>
                     </tr>
                 </thead>
-                <tbody class="table-group-divider" v-for="member in members">
+                <tbody class="table-group-divider" v-for="member in filterMembers">
                   <tr class="text-center">
-            
-                    <!--TODO: NO ME ANDA URL -->
                     <td><a :href="member.url">{{member.last_name}}, {{member.first_name}}</a></td> 
                     <td>{{member.party}}</td>
                     <td>{{member.state}}</td>
-                    <td>{{member.seniority}}</td>
+                    <td>{{member.seniority}} years</td>
                     <td>{{member.votes_with_party_pct}}%</td>
                   </tr>
-
                 </tbody>
             </table>
-            <div id="alert" class="hidden alert alert-danger alert-dismissible fade show col-6 w-50 m-auto text-center" role="alert">
-                <p>Members weren't found</p>
+          </div>
+          <div v-if="filterMembers.length === 0">
+            <div class="alert alert-danger alert-dismissible fade show text-center col-9 mx-auto" id="alert" role="alert">
+              Members weren't found
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        </div>
+          </div>
 
     <div class="row">
         <footer class="footer p-3 text-center">

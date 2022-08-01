@@ -10,231 +10,176 @@ Vue.createApp({
             },
             members: [],   //Arr vacío para guardar resultados del Fetch
             filtered: [], //Arr vacío para guardar resultados del Filtro
-            formCheckbox : document.querySelector('#formCheckbox'),
-            alert : document.querySelector('#alert'),
-            select : document.getElementById("select")       
+            parties: ['D', 'R', 'ID'],  
+            state: 'All',
+
+            num_dem_senate: 0,
+            num_dem_house: 0,
+            num_rep_senate: 0,
+            num_rep_house: 0,
+            num_ind_senate: 0,
+            num_ind_house: 0,
+            total_senate: 0,
+            total_house: 0,        
+            pct_dem_votes_senate: 0,
+            pct_dem_votes_house: 0,
+            pct_rep_votes_senate: 0 ,
+            pct_rep_votes_house: 0,
+            pct_ind_votes_senate: 0,
+            pct_ind_votes_house: 0,
+            pct_total_senate: 0,
+            pct_total_house: 0 ,
+            least_engaged_senate: [],   //* MAYOR cantidad de missed: missed_votes
+            least_engaged_house: [],
+            most_engaged_senate: [],
+            most_engaged_house: []  ,          
+            least_loyal_senate: [], 
+            least_loyal_house: [],
+            most_loyal_senate: [], 
+            most_loyal_house: [],
     }
     },
     mounted(){
-            if(document.title === 'Senate'){
-                fetch(this.urlSenate, this.options)
+        if(document.title === 'Senate'){
+            fetch(this.urlSenate, this.options)
+            .then((res) => res.json())
+            .then((data) => {
+                this.members = data.results[0].members;
+                this.filtered = this.members;
+                
+            })
+            .catch(err => console.error(err))
+        }
+        if(document.title === 'House'){
+            fetch(this.urlHouse, this.options)
+            .then((res) => res.json())
+            .then((data) => {
+                this.members = data.results[0].members;  
+                // obtenerSelected(members);
+            })
+            .catch(err => console.error(err))
+        }
+        if(document.title === "Attendance | Senate"){
+            fetch(this.urlSenate, this.options)
                 .then((res) => res.json())
                 .then((data) => {
                     this.members = data.results[0].members;
+                    console.log(this.members[0]);
+                    this.num_dem_senate = this.filterByParty(this.members, 'D').length;
+                    this.num_rep_senate = this.filterByParty(this.members, 'R').length;
+                    this.num_ind_senate = this.filterByParty(this.members, 'ID').length;
+                    this.total_senate = this.filterByParty(this.members).length;
+                    this.pct_dem_votes_senate = this.getPctVoted(this.members, 'D');
+                    this.pct_rep_votes_senate = this.getPctVoted(this.members, 'R');
+                    this.pct_ind_votes_senate = this.getPctVoted(this.members, 'ID');
+                    this.pct_total_senate = this.getPctVoted(this.members);
+                    this.least_engaged_senate = this.sortFunction(this.members, 'missed_votes', false);
+                    this.most_engaged_senate = this.sortFunction(this.members, 'missed_votes', true);
                 })
                 .catch(err => console.error(err))
-            }
-            if(document.title === 'House'){
-                fetch(this.urlHouse, this.options)
+        }
+        if(document.title === "Attendance | House"){
+            fetch(this.urlHouse, this.options)
                 .then((res) => res.json())
                 .then((data) => {
                     this.members = data.results[0].members;  
-                    // obtenerSelected(members);
+                    console.log(this.members[0]);
+                    this.num_dem_house = this.filterByParty(this.members, 'D').length;
+                    this.num_rep_house = this.filterByParty(this.members, 'R').length;
+                    this.num_ind_house = this.filterByParty(this.members, 'ID').length;
+                    this.total_house = this.filterByParty(this.members).length;
+                    this.pct_dem_votes_house = this.getPctVoted(this.members, 'D');
+                    this.pct_rep_votes_house = this.getPctVoted(this.members, 'R');
+                    this.pct_ind_votes_house = this.getPctVoted(this.members, 'ID');
+                    this.pct_total_house = this.getPctVoted(this.members);
+                    this.least_engaged_house = this.sortFunction(this.members, 'missed_votes', false);
+                    this.most_engaged_house = this.sortFunction(this.members, 'missed_votes', true);
                 })
                 .catch(err => console.error(err))
-            }
-        },
+        }
+        if(document.title === "Party Loyalty | Senate"){
+            fetch(this.urlSenate, this.options)
+                .then((res) => res.json())
+                .then((data) => {
+                    this.members = data.results[0].members;
+                    console.log(this.members[0]);
+                    this.num_dem_senate = this.filterByParty(this.members, 'D').length;
+                    this.num_rep_senate = this.filterByParty(this.members, 'R').length;
+                    this.num_ind_senate = this.filterByParty(this.members, 'ID').length;
+                    this.total_senate = this.filterByParty(this.members).length;
+                    this.pct_dem_votes_senate = this.getPctVoted(this.members, 'D');
+                    this.pct_rep_votes_senate = this.getPctVoted(this.members, 'R');
+                    this.pct_ind_votes_senate = this.getPctVoted(this.members, 'ID');
+                    this.pct_total_senate = this.getPctVoted(this.members);
+                    this.least_loyal_senate = this.sortFunction(this.members, 'votes_with_party_pct', true);
+                    this.most_loyal_senate = this.sortFunction(this.members, 'votes_with_party_pct', false);
+                })
+                .catch(err => console.error(err))
+        }
+        if(document.title === "Party Loyalty | House"){
+            fetch(this.urlHouse, this.options)
+                .then((res) => res.json())
+                .then((data) => {
+                    this.members = data.results[0].members;  
+                    console.log(this.members[0]);
+                    this.num_dem_house = this.filterByParty(this.members, 'D').length;
+                    this.num_rep_house = this.filterByParty(this.members, 'R').length;
+                    this.num_ind_house = this.filterByParty(this.members, 'ID').length;
+                    this.total_house = this.filterByParty(this.members).length;
+                    this.pct_dem_votes_house = this.getPctVoted(this.members, 'D');
+                    this.pct_rep_votes_house = this.getPctVoted(this.members, 'R');
+                    this.pct_ind_votes_house = this.getPctVoted(this.members, 'ID');
+                    this.pct_total_house = this.getPctVoted(this.members);
+                    this.least_loyal_house = this.sortFunction(this.members, 'votes_with_party_pct', true);
+                    this.most_loyal_house = this.sortFunction(this.members, 'votes_with_party_pct', false);
+                })
+                .catch(err => console.error(err))
+        }
+    },
     methods: {
-        arrayDeCheck: function(){
-            const checkboxes = document.querySelectorAll('.checkbox')
-            let checkArr = [];
-
-            for(let checkbox of checkboxes){
-                if(checkbox.checked == true){
-                    checkArr.push(checkbox.value); 
-                } else {
-                    checkArr = checkArr.filter(element => element != checkbox.value);
-            }}
-            console.log(checkArr);
-            return checkArr
+        //Methods Tercer Tarea
+        filterByParty: function(arr, party){
+            let repsNumber
+            !party ? repsNumber = arr.filter(member => member.party)
+            : repsNumber = arr.filter(member => member.party === party);
+            return repsNumber
         },
-
-        obtenerSelected: function(arr){
-            let selected = select.value
-            arr.unshift(selected)
-            console.log(selected);
+        getPctVoted: function(arr, party){
+            let count = 0;
+            let filteredParty = this.filterByParty(arr, party);
+            for(i = 0; i < filteredParty.length; i++){
+                !filteredParty[i].votes_with_party_pct ? filteredParty[i].votes_with_party_pct = 0 
+                : count += filteredParty[i].votes_with_party_pct;
+            }
+            let total = parseFloat((count / filteredParty.length).toFixed(2)) || 0 ;
+            return total
         },
-
-        obtenerEstados: function(arr){
-            const newArr = arr.map(member =>
-                member.state
-            )
-            sinRepetidos = Array.from(new Set(newArr))
-            console.log(sinRepetidos);
-        },
-
-        generarOption: function(arr){
-            const select = document.querySelector('#select')
-            arr.forEach(estado => {
-            let newOption = document.createElement('OPTION')
-            newOption.textContent = estado
-            newOption.setAttribute("value", estado)
-            select.appendChild(newOption)
-        })
-        },
-
-        filterMembers: function(arr , condicion){
-        const aux = arr.filter(member => {
-            if((member.state === condicion[0] || condicion[0] === "All" || condicion.length === 0 ) && condicion.includes(member.party)){
-                return member
+        sortFunction: function(arr,prop, order){
+            const newArr = arr.sort( (a,b) => {
+            if(order){
+                return a[prop] - b[prop]
+            }else{
+                return b[prop] - a[prop]
             }
             })
-            return aux;
+            const tenPct = Math.ceil(newArr.length * .1)
+            const ref = newArr[tenPct - 1][prop]
+            if(order){
+                return newArr.filter( elemento => elemento[prop] <= ref)
+            }else{
+                return newArr.filter( elemento => elemento[prop] >= ref)
+            }
         },
-    }
+    },
+    computed: {
+        //Segunda Tarea
+        filterMembers: function(){
+            this.filtered = this.members.filter(member => {
+                return this.parties.includes(member.party) 
+                && (this.state === 'All' || member.state === this.state);
+            })
+            console.log(this.filtered.length);
+            return this.filtered;
+        }
+        },            
 }).mount('#app')
-
-
-
-
-
-
-
-
-/*------------ API Request  ----------------*/
-// const urlSenate = 'https://api.propublica.org/congress/v1/117/senate/members.json'
-// const urlHouse = 'https://api.propublica.org/congress/v1/117/house/members.json'
-// const key = 'BT3c8wQepIFXwxZXbygcABZa5k5l31cAMIDIrVDA'
-// const options = {
-//     method: 'GET',
-//     headers: {
-//         'X-API-Key': key
-//     }
-// }
-// let arr = []
-
-const bodytableSenate = document.querySelector('#bodytable-senate')
-const bodytableHouse = document.querySelector('#bodytable-house')
-const formCheckbox = document.querySelector('#formCheckbox')
-const alert = document.querySelector('#alert')
-const select = document.getElementById("select");
-let sinRepetidos = []; //Array que guarda los estados sin repetidos, lo uso enobtenerEstados() y generaroption
-
-
-// async function getData (url) {
-//     try{
-//         await fetch(url, options)
-//         .then(res => res.json())
-//         .then(data => {
-//             arr = data.results[0].members
-//             console.log(arr)
-//         })
-//     }catch{
-//         console.log('algo salio mal')
-//     }
-// }
-
-// function arrayDeCheck(){
-// const checkboxes = document.querySelectorAll('.checkbox')   //* me devuelve nodeList, lo paso a array
-// let checkArr = [];
-
-// for(let checkbox of checkboxes){
-//         if(checkbox.checked == true){
-//             checkArr.push(checkbox.value);  //Guardo en mi array los elementos tildados
-//         } else {
-//             //Sacamos los elementos del array
-//             checkArr = checkArr.filter(element => element != checkbox.value);            
-// }}
-//     return checkArr
-// }
-
-// function obtenerSelected(arr){
-//     let selected = select.value
-//     arr.unshift(selected)
-// }
-
-// function obtenerEstados(arr){  
-//     const newArr = arr.map(member =>
-//         member.state
-//     )
-//     sinRepetidos = Array.from(new Set(newArr))
-// }
-
-// function generarOption(arr){
-//     const select = document.querySelector('#select')
-//     arr.forEach(estado => {
-//     let newOption = document.createElement('OPTION')
-//     newOption.textContent = estado
-//     newOption.setAttribute("value", estado)  //* le agergo un value para poder filtrar desp
-//     select.appendChild(newOption)
-// })}
-
-// function filterMembers(arr , condicion){ 
-//     const aux = arr.filter(member => {
-//         if((member.state === condicion[0] || condicion[0] === "All" || condicion.length === 0 ) && condicion.includes(member.party)){
-//             return member
-//         }
-//         })
-//         return aux;
-// }
-
-// if (document.title == "Senate"){
-//     getData(urlSenate)
-//     console.log(getData(urlSenate));
-//     showMembers(arrSenate, bodytableSenate);
-//     obtenerEstados(arrSenate)
-//     generarOption(sinRepetidos)
-
-//     formCheckbox.addEventListener('change', (e) => {
-//         const resultado = arrayDeCheck()
-//         obtenerSelected(resultado)
-//         console.log(resultado);
-//         filtrados = filterMembers(senateCopy, resultado) 
-//         console.log(filtrados);
-//         showMembers(filtrados, bodytableSenate)
-//         if( resultado.length === 0 || resultado.length ===1 && resultado[0] === "All"){ 
-//             showMembers(houseCopy, bodytableSenate)
-//         }
-//     })
-// } 
-// else if (document.title == "House") {
-//     getData(urlHouse)
-//     showMembers(houseCopy, bodytableHouse)
-//     obtenerEstados(houseCopy)
-//     generarOption(sinRepetidos)
-
-//     formCheckbox.addEventListener('change', (e) => {
-//         const resultado = arrayDeCheck()  //*Mi array con los checkboxs
-//         obtenerSelected(resultado)
-//         console.log(resultado);  
-//         filtrados = filterMembers(houseCopy, resultado)  
-//         console.log(filtrados);
-//         showMembers(filtrados, bodytableHouse)
-//         if( resultado.length === 0 || resultado.length ===1 && resultado[0] === "All"){ 
-//             showMembers(houseCopy, bodytableHouse)
-//         }
-//         if (filtrados.length === 0) {
-//                 alert.classList.remove("hidden")
-//         }
-//     })
-// }
-
-// function showMembers(arr, element) {
-//     element.innerHTML = ''
-//     arr.forEach(member => {
-//         let tr = document.createElement('TR')
-//         tr.classList.add('text-center')
-        
-//         let tdName = document.createElement('TD')
-//         tdName.innerHTML = `<a class="text-decoration-none opacity-75" href=${member.url}>${member.last_name}, ${member.first_name}</a>`;;
-//         tr.appendChild(tdName)
-        
-//         let tdParty = document.createElement('TD')
-//         tdParty.textContent = `${member.party || ""}`
-//         tr.appendChild(tdParty)
-
-//         let tdState = document.createElement('TD')
-//         tdState.textContent = `${member.state || ""}`
-//         tr.appendChild(tdState)
-        
-//         let tdYears = document.createElement('TD')
-//         tdYears.textContent = `${member.seniority || ""} years`
-//         tr.appendChild(tdYears)
-        
-//         let tdVotes = document.createElement('TD')
-//         tdVotes.textContent = `${member.votes_with_party_pct || ""}% `
-//         tr.appendChild(tdVotes)
-
-//         element.appendChild(tr)
-//     })
-// }
