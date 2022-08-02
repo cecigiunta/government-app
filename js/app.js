@@ -8,8 +8,8 @@ Vue.createApp({
                 method: 'GET',
                 headers: {"X-API-Key":'BT3c8wQepIFXwxZXbygcABZa5k5l31cAMIDIrVDA'}
             },
-            members: [],   //Arr vacío para guardar resultados del Fetch
-            filtered: [], //Arr vacío para guardar resultados del Filtro
+            members: [],
+            filtered: [], 
             parties: ['D', 'R', 'ID'],  
             state: 'All',
 
@@ -29,7 +29,7 @@ Vue.createApp({
             pct_ind_votes_house: 0,
             pct_total_senate: 0,
             pct_total_house: 0 ,
-            least_engaged_senate: [],   //* MAYOR cantidad de missed: missed_votes
+            least_engaged_senate: [],  
             least_engaged_house: [],
             most_engaged_senate: [],
             most_engaged_house: []  ,          
@@ -135,11 +135,11 @@ Vue.createApp({
         }
     },
     methods: {
-        //Methods Tercer Tarea
+        //Tercer Tarea
         filterByParty: function(arr, party){
             let repsNumber
-            !party ? repsNumber = arr.filter(member => member.party)
-            : repsNumber = arr.filter(member => member.party === party);
+            !party ? repsNumber = arr.filter(member => member.party && member.total_votes)
+            : repsNumber = arr.filter(member => member.party === party && member.total_votes );
             return repsNumber
         },
         getPctVoted: function(arr, party){

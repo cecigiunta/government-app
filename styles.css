@@ -3,11 +3,25 @@
     padding: 0;
     box-sizing: border-box;
 }
+#app{
+    background-image: url("./assets/bg4.png.crdownload");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
 /*---------------- Header -----------------*/
 .header-style{
-    background-image: url("./assets/usa-flag.jpg");
+    background-image: url("./assets/flag3-gif.gif");
     background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 20vh;
+}
+.header-sticky{
+    position: fixed;
+    top: 0;
+    z-index: 1;
 }
 .img-logo-header{
     width: 100px;
@@ -28,17 +42,6 @@
 .title-style{
     text-shadow: 5px 5px #01060b;
 }
-
-#app{
-    background-color: rgb(247, 247, 247);
-}
-
-
-/*---------------- Footer -----------------*/
-.footer{
-    background-color: rgba(1, 13, 80, 0.876);
-}
-
 
 /*---------------- Tables Animation -----------------*/
 .animate__slideInRight{
@@ -70,3 +73,7 @@
     }
 }
 
+/*---------------- Footer -----------------*/
+.footer{
+    background-color: rgba(1, 13, 80, 0.876);
+}

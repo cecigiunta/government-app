@@ -74,7 +74,7 @@
 
     <div class="animate__fadeIn">
 
-    <div class="my-4 mx-2 col-12 col-lg-7 d-flex flex-column align-items-lg-left">
+      <div class="my-4 mx-4 col-10 col-lg-7 d-flex flex-column align-items-lg-left">
         <h2 class="mx-auto mx-lg-0">Congressmen</h2>
         <p>
             The major power of the House is to pass federal legislation that affects the entire country, although its
@@ -122,11 +122,11 @@
 
         <!-- Loading Spinner -->
         <div v-if="members.length === 0" class="col-3 mx-auto my-5 py-2">
-          <div class="text-center text-primary">
+          <div class="text-center text-info">
             <div class="spinner-border" role="status">
             </div>
           </div>
-          <span class="fs-5 ms-5">Loading Results...</span>
+          <span class="fs-5 ms-5 text-info">Loading Results...</span>
         </div>
 
         <div v-if="members.length > 0">
