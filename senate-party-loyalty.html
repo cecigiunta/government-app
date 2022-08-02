@@ -72,6 +72,8 @@
       </div>
     </nav>
 
+    <div class="animate__fadeIn">
+
     <div class="container">
         <div class="d-flex flex-column justify-content-between flex-lg-row mx-auto my-2">
             <div class="container m-2 col-lg-6 col-12">
@@ -87,6 +89,13 @@
 
             <div class="me-5 my-2 table-responsive-md col-lg-5 col-12 text-center">
                 <h5 class="my-3">Senate at a glance</h5>
+                <div v-if="members.length === 0" class="col-3 mx-auto my-5 py-2">
+                  <div class="spinner-grow text-dark" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+  
+              <div v-if="members.length > 0">   
                 <table class="table table-hover m-2 shadow p-3 mb-5 bg-body">
                     <thead class="table-primary">
                         <tr class="text-center">
@@ -95,7 +104,7 @@
                             <th>Votes w/ Party</th>
                         </tr>
                     </thead>
-                    <tbody class="glance-senate table-group-divider">
+                    <tbody class="animate__slideInRight glance-senate table-group-divider">
                       <tr class="text-center">
                         <td>Democrats</td> 
                         <td>{{num_dem_senate}}</td>
@@ -118,12 +127,20 @@
                       </tr>
                     </tbody>
                 </table>
+              </div>
             </div>
         </div>
 
         <div class="d-flex flex-column justify-content-between flex-lg-row mx-auto text-center">
             <div class="me-5 table-responsive-md col-lg-5 col-12">
                 <h5 class="my-3">Least Loyal (Bottom 10% of Party)</h5>
+                <div v-if="members.length === 0" class="col-3 mx-auto my-5 py-2">
+                  <div class="spinner-grow text-dark" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+  
+              <div v-if="members.length > 0">   
                 <table class="table table-hover m-2 shadow p-3 mb-5 bg-body rounded">
                     <thead class="table-primary">
                         <tr class="text-center">
@@ -132,7 +149,7 @@
                             <th>% Party Votes</th>
                         </tr>
                     </thead>
-                    <tbody class="least-loyal table-group-divider" v-for="member in least_loyal_senate">
+                    <tbody class="animate__slideInRight least-loyal table-group-divider" v-for="member in least_loyal_senate">
                       <tr class="text-center">
                         <td><a :href="member.url">{{member.last_name}}, {{member.first_name}}</a></td> 
                         <td>{{member.total_votes}}</td>
@@ -140,10 +157,18 @@
                       </tr>
                     </tbody>
                 </table>
+              </div>
             </div>
 
             <div class="me-5 table-responsive-md col-lg-5 col-12 text-center">
                 <h5 class="my-3">Most Loyal (Top 10% of Party)</h5>
+                <div v-if="members.length === 0" class="col-3 mx-auto my-5 py-2">
+                  <div class="spinner-grow text-dark" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+  
+              <div v-if="members.length > 0">   
                 <table class="table table-hover m-2 shadow p-3 mb-5 bg-body rounded">
                     <thead class="table-primary">
                         <tr class="text-center">
@@ -152,7 +177,7 @@
                             <th>% Party</th>
                         </tr>
                     </thead>
-                    <tbody class="least-loyal table-group-divider" v-for="member in most_loyal_senate">
+                    <tbody class="animate__slideInRight least-loyal table-group-divider" v-for="member in most_loyal_senate">
                       <tr class="text-center">
                         <td><a :href="member.url">{{member.last_name}}, {{member.first_name}}</a></td> 
                         <td>{{member.total_votes}}</td>
@@ -161,7 +186,10 @@
                     </tbody>
                 </table>
             </div>
+            </div>
         </div>
+
+      </div>
 
     </div>
     <div class="row">

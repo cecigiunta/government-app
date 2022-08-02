@@ -26,132 +26,146 @@
             </div>                       
         </div>
       </header>
-  <nav class="navbar navbar-bg navbar-expand-xxl">
-    <div class="container-fluid">
-      <span class="navbar-brand text-white">Data Insigth Group</span>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link text-white py-2 mx-4 fs-4" aria-current="page" href="./index.html">Home</a>
-          <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle text-danger py-2 mx-4 fs-4" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Congress 113
-            </a>
-            <div class="dropdown-menu navbar-bg text-center fs-4" aria-labelledby="navbarDropdown1">
-              <a class="dropdown-item navbar-bg text-danger" href="#">Senate</a>
-              <hr class="dropdown-divider">
-              <a class="dropdown-item " href="./house.html">House</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white py-2 mx-4 fs-4" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Attendance
-            </a>
-            <div class="dropdown-menu navbar-bg text-center fs-4" aria-labelledby="navbarDropdown2">
-              <a class="dropdown-item" href="./senate-attendance.html">Senate</a>
-              <hr class="dropdown-divider">
-              <a class="dropdown-item" href="./house-attendance.html">House</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white py-2 mx-4 fs-4" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Party Loyalty
-            </a>
-            <div class="dropdown-menu navbar-bg text-center fs-4" aria-labelledby="navbarDropdown3">
-              <a class="dropdown-item" href="./senate-party-loyalty.html">Senate</a>
-              <hr class="dropdown-divider">
-              <a class="dropdown-item" href="./house-party-loyalty.html">House</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-    
-  <div class="my-4 mx-2 col-12 col-lg-7 d-flex flex-column align-items-lg-left">
-    <h2 class="mx-auto mx-lg-0">Senators</h2>
-    <p>
-      First convened in 1789, the composition and powers of the Senate are
-      established in Article One of the U.S. Constitution. Each state is
-      represented by two senators, regardless of population, who serve
-      staggered six-year terms. The Senate has several exclusive powers not
-      granted to the House, including consenting to treaties as a precondition
-      to their ratification and consenting to or confirming appointments of
-      Cabinet secretaries, federal judges, other federal executive officials,
-      military officers, regulatory officials, ambassadors, and other federal
-      uniformed officers, as well as trial of federal officials impeached by
-      the House.
-    </p>
-  </div>
-    
-  <div class="container text-center justify-content-center">
-    <form  id="formCheckbox" class="row d-flex flex-row justify-content-center mx-auto">          
-        <div class="col-12 col-lg-5 mx-auto my-2">
-            <h5>Filter by Party:</h5>                
-            <div class="btn-group mb-2" role="group" aria-label="Basic checkbox button group">
-                
-                <label class="btn btn-outline-dark" for="check-d">Democrat
-                  <input v-model="parties" type="checkbox" id="check-d" name="party" value="D" />
-                </label>
-
-                <label class="btn btn-outline-dark" for="check-r"> Republican
-                  <input v-model="parties" type="checkbox" id="check-r" name="party" value="R" />
-                </label>
-
-                <label class="btn btn-outline-dark" for="check-i">Independent
-                  <input v-model="parties" type="checkbox" id="check-i" name="party" value="ID" />
-                </label>
-            </div>
+      <nav class="navbar navbar-bg navbar-expand-xxl">
+        <div class="container-fluid">
+          <span class="navbar-brand text-white">Data Insigth Group</span>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link text-white py-2 mx-4 fs-4" aria-current="page" href="./index.html">Home</a>
+              <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle text-danger py-2 mx-4 fs-4" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Congress 113
+                </a>
+                <div class="dropdown-menu navbar-bg text-center fs-4" aria-labelledby="navbarDropdown1">
+                  <a class="dropdown-item navbar-bg text-danger" href="#">Senate</a>
+                  <hr class="dropdown-divider">
+                  <a class="dropdown-item " href="./house.html">House</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white py-2 mx-4 fs-4" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Attendance
+                </a>
+                <div class="dropdown-menu navbar-bg text-center fs-4" aria-labelledby="navbarDropdown2">
+                  <a class="dropdown-item" href="./senate-attendance.html">Senate</a>
+                  <hr class="dropdown-divider">
+                  <a class="dropdown-item" href="./house-attendance.html">House</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white py-2 mx-4 fs-4" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Party Loyalty
+                </a>
+                <div class="dropdown-menu navbar-bg text-center fs-4" aria-labelledby="navbarDropdown3">
+                  <a class="dropdown-item" href="./senate-party-loyalty.html">Senate</a>
+                  <hr class="dropdown-divider">
+                  <a class="dropdown-item" href="./house-party-loyalty.html">House</a>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="col-12 col-lg-5 responsive mx-auto text-center">
-            <h5>Filter by State:</h5>
-            <select v-model="state" class="form-select text-center my-2" id="select">
-                <option class="text-center" value="All">All</option>
-                <option class="text-center" v-for="member in members">
-                  {{member.state}}
-                </option>
-            </select>
-        </div>
-      </form>
-    </div>
-    
-    <div v-if="filterMembers.length > 0" class="m-auto mx-4 table-responsive-md">
-      <table class="table table-hover m-2" id="table">
-        <thead class="table-primary">
-          <tr class="text-center">
-            <th>Name</th>
-            <th>Party</th>
-            <th>State</th>
-            <th>Seniority</th>
-            <th>Votes w/ Party</th>
-          </tr>
-        </thead>
-        <tbody class="table-group-divider" v-for="member in filterMembers">
-          <tr class="text-center">
-            <td><a :href="member.url">{{member.last_name}}, {{member.first_name}}</a></td> 
-            <td>{{member.party}}</td>
-            <td>{{member.state}}</td>
-            <td>{{member.seniority}} years</td>
-            <td>{{member.votes_with_party_pct}}%</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div v-if="filterMembers.length === 0">
-      <div class="alert alert-danger alert-dismissible fade show text-center col-9 mx-auto" id="alert" role="alert">
-        Members weren't found
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    </div>
+      </nav>
 
+      <div class="animate__fadeIn">
     
-    <footer class="footer p-3 text-center">
-      <span class="text-white lead">© 2021 Data Insight Group | All Rights Reserved</span>
-    </footer>
-  </div>
+        <div class="my-4 mx-2 col-12 col-lg-7 d-flex flex-column align-items-lg-left">
+          <h2 class="mx-auto mx-lg-0">Senators</h2>
+          <p>
+            First convened in 1789, the composition and powers of the Senate are
+            established in Article One of the U.S. Constitution. Each state is
+            represented by two senators, regardless of population, who serve
+            staggered six-year terms. The Senate has several exclusive powers not
+            granted to the House, including consenting to treaties as a precondition
+            to their ratification and consenting to or confirming appointments of
+            Cabinet secretaries, federal judges, other federal executive officials,
+            military officers, regulatory officials, ambassadors, and other federal
+            uniformed officers, as well as trial of federal officials impeached by
+            the House.
+          </p>
+        </div>
+    
+        <div class="container text-center justify-content-center">
+          <form  id="formCheckbox" class="row d-flex flex-row justify-content-center mx-auto">          
+              <div class="col-12 col-lg-5 mx-auto my-2">
+                  <h5>Filter by Party:</h5>                
+                  <div class="btn-group mb-2" role="group" aria-label="Basic checkbox button group">
+                      
+                      <label class="btn btn-outline-dark" for="check-d">Democrat
+                        <input v-model="parties" type="checkbox" id="check-d" name="party" value="D" />
+                      </label>
+
+                      <label class="btn btn-outline-dark" for="check-r"> Republican
+                        <input v-model="parties" type="checkbox" id="check-r" name="party" value="R" />
+                      </label>
+
+                      <label class="btn btn-outline-dark" for="check-i">Independent
+                        <input v-model="parties" type="checkbox" id="check-i" name="party" value="ID" />
+                      </label>
+                  </div>
+              </div>
+              <div class="col-12 col-lg-5 responsive mx-auto text-center">
+                  <h5>Filter by State:</h5>
+                  <select v-model="state" class="form-select text-center my-2" id="select">
+                      <option class="text-center" value="All">All</option>
+                      <option class="text-center" v-for="member in members">
+                        {{member.state}}
+                      </option>
+                  </select>
+              </div>
+            </form>
+        </div>
+    
+        <!-- Loading Spinner -->
+        <div v-if="members.length === 0" class="col-3 mx-auto my-5 py-2">
+          <div class="text-center text-primary">
+            <div class="spinner-border" role="status">
+            </div>
+          </div>
+          <span class="fs-5 ms-5">Loading Results...</span>
+        </div>
+
+        <div v-if="members.length > 0">
+          <div v-if="filterMembers.length > 0" class="m-auto mx-4 table-responsive-md">
+            <table class="table table-hover m-2" id="table">
+              <thead class="table-primary">
+                <tr class="text-center">
+                  <th>Name</th>
+                  <th>Party</th>
+                  <th>State</th>
+                  <th>Seniority</th>
+                  <th>Votes w/ Party</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider animate__slideInRight" v-for="member in filterMembers">
+                <tr class="text-center">
+                  <td><a :href="member.url">{{member.last_name}}, {{member.first_name}}</a></td> 
+                  <td>{{member.party}}</td>
+                  <td>{{member.state}}</td>
+                  <td>{{member.seniority}} years</td>
+                  <td>{{member.votes_with_party_pct}}%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div v-if="filterMembers.length === 0 && members">
+            <div class="alert alert-danger alert-dismissible fade show text-center col-9 mx-auto" id="alert" role="alert">
+              Members weren't found
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    
+      <footer class="footer p-3 text-center">
+        <span class="text-white lead">© 2021 Data Insight Group | All Rights Reserved</span>
+      </footer>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"

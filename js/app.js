@@ -46,7 +46,6 @@ Vue.createApp({
             .then((data) => {
                 this.members = data.results[0].members;
                 this.filtered = this.members;
-                
             })
             .catch(err => console.error(err))
         }
@@ -55,7 +54,6 @@ Vue.createApp({
             .then((res) => res.json())
             .then((data) => {
                 this.members = data.results[0].members;  
-                // obtenerSelected(members);
             })
             .catch(err => console.error(err))
         }

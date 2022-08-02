@@ -72,6 +72,8 @@
       </div>
     </nav>
 
+    <div class="animate__fadeIn">
+
     <div class="my-4 mx-2 col-12 col-lg-7 d-flex flex-column align-items-lg-left">
         <h2 class="mx-auto mx-lg-0">Congressmen</h2>
         <p>
@@ -118,34 +120,47 @@
         </form>
     </div>
 
-        <div v-if="filterMembers.length > 0" class="m-auto mx-4 table-responsive-md">
+        <!-- Loading Spinner -->
+        <div v-if="members.length === 0" class="col-3 mx-auto my-5 py-2">
+          <div class="text-center text-primary">
+            <div class="spinner-border" role="status">
+            </div>
+          </div>
+          <span class="fs-5 ms-5">Loading Results...</span>
+        </div>
+
+        <div v-if="members.length > 0">
+          <div v-if="filterMembers.length > 0" class="m-auto mx-4 table-responsive-md">
             <table class="table table-hover m-2" id="table">
-                <thead class="table-danger">
-                    <tr class="text-center">
-                        <th>Name</th>
-                        <th>Party</th>
-                        <th>State</th>
-                        <th>Seniority</th>
-                        <th>Votes w/ Party</th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider" v-for="member in filterMembers">
-                  <tr class="text-center">
-                    <td><a :href="member.url">{{member.last_name}}, {{member.first_name}}</a></td> 
-                    <td>{{member.party}}</td>
-                    <td>{{member.state}}</td>
-                    <td>{{member.seniority}} years</td>
-                    <td>{{member.votes_with_party_pct}}%</td>
-                  </tr>
-                </tbody>
+              <thead class="table-primary">
+                <tr class="text-center">
+                  <th>Name</th>
+                  <th>Party</th>
+                  <th>State</th>
+                  <th>Seniority</th>
+                  <th>Votes w/ Party</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider animate__slideInRight" v-for="member in filterMembers">
+                <tr class="text-center">
+                  <td><a :href="member.url">{{member.last_name}}, {{member.first_name}}</a></td> 
+                  <td>{{member.party}}</td>
+                  <td>{{member.state}}</td>
+                  <td>{{member.seniority}} years</td>
+                  <td>{{member.votes_with_party_pct}}%</td>
+                </tr>
+              </tbody>
             </table>
           </div>
-          <div v-if="filterMembers.length === 0">
+          <div v-if="filterMembers.length === 0 && members">
             <div class="alert alert-danger alert-dismissible fade show text-center col-9 mx-auto" id="alert" role="alert">
               Members weren't found
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           </div>
+        </div>
+
+      </div>
 
     <div class="row">
         <footer class="footer p-3 text-center">

@@ -29,8 +29,44 @@
     text-shadow: 5px 5px #01060b;
 }
 
+#app{
+    background-color: rgb(247, 247, 247);
+}
+
 
 /*---------------- Footer -----------------*/
 .footer{
     background-color: rgba(1, 13, 80, 0.876);
 }
+
+
+/*---------------- Tables Animation -----------------*/
+.animate__slideInRight{
+    animation-name: slideInRight;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/*---------------- Pages Animation -----------------*/
+.animate__fadeIn{
+    animation-name: fadeIn;
+    animation-duration: 1.2s;
+    animation-fill-mode: forwards;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
