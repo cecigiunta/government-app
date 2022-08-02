@@ -18,11 +18,6 @@
     background-position: center;
     height: 20vh;
 }
-.header-sticky{
-    position: fixed;
-    top: 0;
-    z-index: 1;
-}
 .img-logo-header{
     width: 100px;
     height: 100px;
