@@ -1,7 +1,7 @@
 # "USA Government App"
 
 ## Proyecto Mod2 - Bootcamp Iniciatec
-Este proyecto de se realizó como trabajo final para el módulo de JavaScript del Bootcamp
+Este proyecto se realizó como trabajo final para el módulo de JavaScript del Bootcamp
 
 ### Funcionalidades
  - Página principal en la cual se muestra una introducción
